@@ -6,7 +6,7 @@ I'm a student at Brigham Young University studying Statistical Science. I love l
 ### My Projects
 
 ##### 1. Rats in NYC
-I worked on a case competition here at my school. We had to help the city of New York find out what factors of a City Council district were associated with higher rodent issues. Some of the code I personally worked on (Rodents_EDA_zach's_stuff.R) and the final presentation (Ratatouille.pptx) are here in the repository. 
+I worked on a case competition here at my school. We had to help the city of New York find out what factors of a City Council district were associated with higher rodent issues. We ended up winning 2nd place! Some of the code I personally worked on (Rodents_EDA_zach's_stuff.R) and the final presentation (Ratatouille.pptx) are here in the repository. 
 
 <!--
 **zajorgen/zajorgen** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
