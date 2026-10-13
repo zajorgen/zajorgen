@@ -1,4 +1,4 @@
-# Hey I'm Zach Jorgensen
+# Hey, I'm Zach Jorgensen!!
 
 ### My Story
 I'm a student at Brigham Young University studying Statistical Science. I love learning and discovering new thing through data! I'm using this profile to showcase some of my personal and class projects that I think were pretty interesting. 
