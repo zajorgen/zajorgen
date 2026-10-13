@@ -1,0 +1,80 @@
+---
+title: "Project 2: Top Golf"
+author: Zach Jorgensen
+format: 
+  html: 
+    embed-resources: true
+editor: visual
+---
+
+**Data:**
+
+I go to Top Golf in Vineyard with friends and cousins very often. I wanted to find out which club helps me hit the ball the farthest on average. I designed an 1-factor experiment to find out. I selected .05 for my alpha value.
+
+For my response variable I selected Carry (the distance in yards the ball travels in the air), which was calculated by the computer at Top Golf. I chose this because it was a good measure of distance, while also being easy to calculate. My factor was the type of club used, and I selected four different clubs as factor levels: a driver, a four iron, a hybrid/wood, and Top Golf's new "Sure Thing" club. I chose these clubs because they are the only four I have ever used while at Top Golf. I predicted that either the driver or the Sure Thing would help me hit farther because they are both heavier clubs designed for hitting the ball farther, while the lighter clubs would not be as effective at hitting the ball very far.
+
+The data was collected on Thursday, Feb. 24th, 2026 at the Top Golf in Vineyard, UT. I played the standard Top Golf game that gives each player 5 swings per turn. In order to replicate real game-play, I randomized the order in which I used each club, but I only used one club per turn, since that is what I do in real games. On each turn, I would take exactly one practice swing before taking my first real swing. I then did each of the five swings in a row and recorded the carry for each swing. I would then sit down and wait for my next turn. This brought me to a total of 8 turns, 2 per club, and thus 10 swings per club and 40 total replications. This was the maximum number of swings I could complete within one hour at Top Golf (a typical appointment length), while also providing several observations for each factor level.
+
+Randomization of club order was done using a computer to randomly order 4 letters twice. I then randomly assigned each club to a letter using ChatGPT.
+
+**Import:**
+
+```{r}
+#| warnings: false
+#| output: false
+library(tidyverse)
+library(table1)
+```
+
+```{r}
+TopGolf <- read_csv("TopGolf_Data.csv")
+```
+
+**Wrangling:**
+
+```{r}
+TopGolf <- TopGolf %>% 
+mutate(Club_Type = factor(Club_Type))
+```
+
+**EDA:**
+
+```{r}
+TopGolf %>% 
+ggplot(aes(x=Club_Type, y=Carry)) +
+  geom_boxplot(fill= "steelblue") +
+  labs(title = "Carry Distance vs Club Type", 
+       x= "Club",
+       y= "Carry (yds)",
+       subtitle= "Top Golf in Vineyard") +
+  theme_classic() 
+```
+
+```{r}
+table1(~Carry|Club_Type, data= TopGolf)
+```
+
+***Reflect:***
+
+The distribution for the driver and the Sure Thing both seem to be approximately normal, while the 4-iron shows some left skew, and the Hybrid shows major left skew. The driver has the highest mean carry at 88.4 yds while the 4-iron has the smallest at 69.6 yds. All four distributions had very large standard deviations, most around 43 yds, but the Sure Thing had the largest spread with a standard deviation of 55 yds. The spread of this data in general seems unusually large to me in general, I think it speaks to my inconsistency as a golfer. I was also surprised by just how low some of the numbers are for the clubs. This can be explained by some of my bad swings causing the data to have multiple very low values.
+
+**Model:**
+
+Is there a statistically significant difference in `Carry` by `Club_Type` ?
+
+Response Variable: `Carry`
+
+Factor: `Club_Type` with levels `Sure Thing`, `4-Iron`, `Driver`, `Hybrid`
+
+ANOVA Model: $Y_{ij} = \mu + \alpha_i + \epsilon_{ij}$, $i = 1,2,3,4,5$
+
+***Report the ANOVA table.***
+
+```{r}
+carry.fit <- lm(Carry ~ Club_Type, data= TopGolf)
+anova(carry.fit)
+```
+
+***Reflect:***
+
+There is no significant difference in carry distance based on which club I use at the 0.05 significance level (p-value = .812). We can conclude that it essentially does not matter which club that I use. I have too much variability in my swing to generate signifcant results. I should probably work on getting my swing more consistent and avoiding errors that cause the ball to fly extremely short. It is funny to see that I can basically just pick any club and expect a similar average distance.
